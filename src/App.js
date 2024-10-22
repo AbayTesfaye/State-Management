@@ -1,48 +1,23 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [profile, setProfile] = useState([]);
-  const [userData, setUserData] = useState({
-    name: "",
-    age: "",
-    department: "",
-  });
-
-  function handleName(e) {
-    setUserData({ ...userData, name: e.target.value });
-  }
-  function handleAge(e) {
-    setUserData({ ...userData, age: e.target.value });
-  }
-  function handleDept(e) {
-    setUserData({ ...userData, department: e.target.value });
-  }
-  function handleSubmit() {
-    setProfile([...profile, userData]);
-    setUserData({
-      name: "",
-      age: "",
-      department: "",
-    });
-  }
-
+  const [name, setName] = useState({ firstName: "", lastName: "" });
   return (
     <div>
-      <h1>User Profile</h1>
+      <h1>
+        Hello {name.firstName} {name.lastName}
+      </h1>
       <input
-        onChange={handleName}
-        placeholder="Enter name"
-        value={userData.name}
+        placeholder="Enter first name"
+        value={name.firstName}
+        onChange={(e) => setName({ ...name, firstName: e.target.value })}
       />
-      <input onChange={handleAge} placeholder="Your age" value={userData.age} />
       <input
-        onChange={handleDept}
-        placeholder="Your Department"
-        value={userData.department}
+        placeholder="Enter last name"
+        value={name.lastName}
+        onChange={(e) => setName({ ...name, lastName: e.target.value })}
       />
-      <button onClick={handleSubmit}>Submit</button>
-      {console.log(profile)}
     </div>
   );
 }
