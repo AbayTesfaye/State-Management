@@ -1,17 +1,32 @@
 import "./App.css";
 import { useState } from "react";
-
 function App() {
-  const [count, setCount] = useState(10);
+  const [list, setList] = useState(["Abay", "Dani", "Asme"]);
+  const [name, setName] = useState();
 
-  function handleCount() {
-    setCount(count + 1);
+  function handleInput(e) {
+    setName(e.target.value);
   }
+
+  function addName() {
+    setList([...list, name]);
+  }
+
   return (
-    <div className="App">
-      <button onClick={handleCount}>{count}</button>
+    <div>
+      <h1>List of Student </h1>
+      {list.map((name) => {
+        return (
+          <ul>
+            <li key={name}>{name}</li>
+          </ul>
+        );
+      })}
+      <div>
+        <input type="text" onChange={handleInput} />
+        <button onClick={addName}>Add Name</button>
+      </div>
     </div>
   );
 }
-
 export default App;
