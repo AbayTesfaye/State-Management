@@ -1,28 +1,48 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import "./App.css";
 
-const intialState = 0;
-const reducer = (state, action) => {
-  switch (action) {
-    case "increament":
-      return state + 1;
-    case "decreament":
-      return state - 1;
-    case "reset":
-      return intialState;
-    default:
-      return state;
-  }
-};
-
 function App() {
-  const [count, Dispatch] = useReducer(reducer, intialState);
+  const [profile, setProfile] = useState([]);
+  const [userData, setUserData] = useState({
+    name: "",
+    age: "",
+    department: "",
+  });
+
+  function handleName(e) {
+    setUserData({ ...userData, name: e.target.value });
+  }
+  function handleAge(e) {
+    setUserData({ ...userData, age: e.target.value });
+  }
+  function handleDept(e) {
+    setUserData({ ...userData, department: e.target.value });
+  }
+  function handleSubmit() {
+    setProfile([...profile, userData]);
+    setUserData({
+      name: "",
+      age: "",
+      department: "",
+    });
+  }
+
   return (
     <div>
-      <h1>Count : {count}</h1>
-      <button onClick={() => Dispatch("increament")}>Increment</button>
-      <button onClick={() => Dispatch("decreament")}>Decrement</button>
-      <button onClick={() => Dispatch("reset")}>Reset</button>
+      <h1>User Profile</h1>
+      <input
+        onChange={handleName}
+        placeholder="Enter name"
+        value={userData.name}
+      />
+      <input onChange={handleAge} placeholder="Your age" value={userData.age} />
+      <input
+        onChange={handleDept}
+        placeholder="Your Department"
+        value={userData.department}
+      />
+      <button onClick={handleSubmit}>Submit</button>
+      {console.log(profile)}
     </div>
   );
 }
