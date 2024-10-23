@@ -1,23 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("");
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
-    console.log("the useEffect is called!");
-    document.title = `React ${count}`;
-  }, [count]);
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => setPosts(response.data))
+      .catch(console.error("error occur"));
+  }, []);
 
   return (
     <div>
-      <input
-        placeholder="Enter Your Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <button onClick={() => setCount(count + 1)}>Count {count}</button>
+      {posts.map((post) => {
+        return <li>{post.title}</li>;
+      })}
     </div>
   );
 }
