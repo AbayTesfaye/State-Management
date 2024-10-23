@@ -1,23 +1,15 @@
 import { useState } from "react";
 import "./App.css";
+import { useEffect } from "react";
 
 function App() {
-  const [name, setName] = useState({ firstName: "", lastName: "" });
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    document.title = count;
+  });
   return (
     <div>
-      <h1>
-        Hello {name.firstName} {name.lastName}
-      </h1>
-      <input
-        placeholder="Enter first name"
-        value={name.firstName}
-        onChange={(e) => setName({ ...name, firstName: e.target.value })}
-      />
-      <input
-        placeholder="Enter last name"
-        value={name.lastName}
-        onChange={(e) => setName({ ...name, lastName: e.target.value })}
-      />
+      <button onClick={() => setCount(count + 1)}>Click {count}</button>
     </div>
   );
 }
